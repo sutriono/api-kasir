@@ -49,11 +49,23 @@ func main() {
 	categoryService := services.NewCategoryService(categoryRepo)
 	categoryHandler := handlers.NewCategoryHandler(categoryService)
 
+	transactionRepo := repositories.NewTransactionRepository(db)
+	transactionService := services.NewTransactionService(transactionRepo)
+	transactionHandler := handlers.NewTransactionHandler(transactionService)
+
+	// transactionRepo := repositories.NewTransactionRepository(db)
+	reportHandler := handlers.NewReportHandler(transactionRepo)
+
 	http.HandleFunc("/api/category", categoryHandler.HandleCategories)
 	http.HandleFunc("/api/category/", categoryHandler.HandleCategoryByID)
 	// Setup routes
 	http.HandleFunc("/api/produk", productHandler.HandleProducts)
 	http.HandleFunc("/api/produk/", productHandler.HandleProductByID)
+
+	http.HandleFunc("/api/checkout", transactionHandler.Checkout)
+
+	http.HandleFunc("/api/report/hari-ini", reportHandler.GetDailySalesReport)
+	http.HandleFunc("/api/report", reportHandler.GetSalesReportByDate)
 
 	// localhost:8080/health
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {

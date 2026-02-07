@@ -22,7 +22,7 @@ func (s *ProductService) Create(data *models.Product) error {
 }
 
 func (s *ProductService) GetByID(id int) (*models.Product, error) {
-	return s.repo.GetByID(id)
+	return s.repo.GetByIDWithCategory(id)
 }
 
 func (s *ProductService) Update(product *models.Product) error {
