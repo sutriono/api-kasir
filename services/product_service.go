@@ -25,6 +25,7 @@ func (s *ProductService) GetByID(id int) (*models.Product, error) {
 	return s.repo.GetByIDWithCategory(id)
 }
 
+
 func (s *ProductService) Update(product *models.Product) error {
 	return s.repo.Update(product)
 }

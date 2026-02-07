@@ -109,7 +109,6 @@ func (repo *ProductRepository) GetByIDWithCategory(id int) (*models.Product, err
 	p.Category = c
 	return &p, nil
 }
-
 func (repo *ProductRepository) Update(product *models.Product) error {
 	query := "UPDATE products SET name = $1, price = $2, stock = $3 WHERE id = $4"
 	result, err := repo.db.Exec(query, product.Name, product.Price, product.Stock, product.ID)
